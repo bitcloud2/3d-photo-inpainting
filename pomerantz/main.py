@@ -3,36 +3,36 @@
 __all__ = ['parser', 'args', 'config', 'sample_list']
 
 # Cell
-import numpy as np
 import argparse
+import copy
+from functools import partial
 import glob
 import os
-from functools import partial
-import vispy
-import scipy.misc as misc
-from tqdm import tqdm
-import yaml
-import time
 import sys
-from .mesh import write_ply, read_ply, output_3d_photo
-from .utils import get_MiDaS_samples, read_MiDaS_depth
-import torch
+import time
+import yaml
+
 import cv2
-from skimage.transform import resize
 import imageio
-import copy
-from .networks import Inpaint_Color_Net, Inpaint_Depth_Net, Inpaint_Edge_Net
-from .MiDaS.run import run_depth
+import numpy as np
+import scipy.misc as misc
+from skimage.transform import resize
+import torch
+from tqdm import tqdm
+import vispy
+
 from .boostmonodepth_utils import run_boostmonodepth
+from .bilateral_filtering import sparse_bilateral_filtering
+from .mesh import write_ply, read_ply, output_3d_photo
+from .networks import Inpaint_Color_Net, Inpaint_Depth_Net, Inpaint_Edge_Net
+from .utils import get_MiDaS_samples, read_MiDaS_depth
 from .MiDaS.monodepth_net import MonoDepthNet
 import pomerantz.MiDaS.MiDaS_utils as MiDaS_utils
-from .bilateral_filtering import sparse_bilateral_filtering
+from .MiDaS.run import run_depth
 
 # Cell
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', type=str, default='argument.yml',help='Configure of post processing')
-
-# Cell
 args = parser.parse_args()
 
 # Cell

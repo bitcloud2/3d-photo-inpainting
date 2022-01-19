@@ -8,39 +8,34 @@ __all__ = ['relabel_node', 'filter_edge', 'extrapolate', 'get_valid_size', 'dila
            'get_depth_from_maps', 'get_depth_from_nodes', 'get_rgb_from_nodes', 'crop_maps_by_size', 'convert2tensor']
 
 # Cell
+import copy
+from functools import partial, reduce
+import json
 import os
+import time
+
+import cv2
+import matplotlib.pyplot as plt
 import numpy as np
+from scipy import ndimage
+import scipy.misc as misc
+import scipy.signal as signal
+from skimage import io
+from skimage.feature import canny
+from skimage.transform import resize
+import torch
+import transforms3d
+from vispy import scene, io
+from vispy.scene import visuals
+from vispy.visuals.filters import Alpha
+
 try:
     import cynetworkx as netx
 except ImportError:
     import networkx as netx
 
-import json
-import scipy.misc as misc
-#import OpenEXR
-import scipy.signal as signal
-import matplotlib.pyplot as plt
-import cv2
-import scipy.misc as misc
-from skimage import io
-from functools import partial
-from vispy import scene, io
-from vispy.scene import visuals
-from functools import reduce
-# from moviepy.editor import ImageSequenceClip
-import scipy.misc as misc
-from vispy.visuals.filters import Alpha
-import cv2
-from skimage.transform import resize
-import copy
-import torch
-import os
 from .utils import refine_depth_around_edge, smooth_cntsyn_gap
 from .utils import require_depth_edge, filter_irrelevant_edge_new, open_small_mask
-from skimage.feature import canny
-from scipy import ndimage
-import time
-import transforms3d
 
 # Cell
 def relabel_node(mesh, nodes, cur_node, new_node):

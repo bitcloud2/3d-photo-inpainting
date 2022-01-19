@@ -3,20 +3,18 @@
 __all__ = ['BOOST_BASE', 'BOOST_INPUTS', 'BOOST_OUTPUTS', 'run_boostmonodepth', 'clean_folder', 'resize_depth']
 
 # Cell
-import os
-import cv2
 import glob
-import numpy as np
+import os
+
+import cv2
 import imageio
+import numpy as np
+
 from .MiDaS.MiDaS_utils import write_depth
 
 # Cell
 BOOST_BASE = 'BoostingMonocularDepth'
-
-# Cell
 BOOST_INPUTS = 'inputs'
-
-# Cell
 BOOST_OUTPUTS = 'outputs'
 
 # Cell
